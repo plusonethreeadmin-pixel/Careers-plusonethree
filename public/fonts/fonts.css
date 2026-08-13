@@ -1,0 +1,25 @@
+/* PlusOneThree brand typefaces — see /guidelines.md */
+
+@font-face {
+  font-family: 'Archivo Condensed';
+  src: url('/fonts/archivo-condensed/Archivo_Condensed-Bold.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Just Sans';
+  src: url('/fonts/just-sans/JustSans-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Just Sans';
+  src: url('/fonts/just-sans/JustSans-ExtraBold.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
