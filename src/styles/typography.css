@@ -1,0 +1,185 @@
+/* ==========================================================================
+   Typography — golden ratio scale (φ × 1.618 from 16px base)
+   Roles: display → counter → CTA → label → tagline → caption
+   ========================================================================== */
+
+.text-stretch {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  /* Gaps come from space-between; letter-spacing would leave a trailing gap
+     after the last character, pulling it off the right edge. */
+  letter-spacing: 0;
+}
+
+/* φ⁵ — hero headline */
+.display-title {
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-display);
+  font-size: clamp(var(--text-xl), 16vw, var(--text-4xl));
+  line-height: 0.82;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.display-title span {
+  display: block;
+}
+
+.display-title-soon {
+  text-box-trim: trim-both;
+  text-box-edge: cap alphabetic;
+}
+
+/* φ³ — member count */
+.display-counter {
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-display);
+  font-size: clamp(var(--text-lg), 9vw, var(--text-xl));
+  line-height: 1;
+  letter-spacing: -0.02em;
+  margin: 0;
+  font-variant-numeric: tabular-nums lining-nums;
+  font-feature-settings: 'tnum' 1, 'lnum' 1;
+}
+
+/* φ⁰ — subline under headline */
+.tagline {
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-body);
+  font-size: clamp(var(--text-base), 2.2vw, var(--text-md));
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.label-small {
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-body);
+  font-size: var(--text-xs);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+/* φ¹ — counter subtitle */
+.member-counter-label {
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-display);
+  font-size: clamp(var(--text-base), 1.8vw, var(--text-md));
+  line-height: 1.2;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.nav-link {
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-body-emphasis);
+  font-size: var(--text-sm);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.copyright {
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-body);
+  font-size: var(--text-xs);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.footer-tagline {
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-display);
+  font-size: clamp(0.5625rem, 2.15vw, 0.6875rem);
+  letter-spacing: 0.12em;
+  line-height: 1.08;
+  text-transform: uppercase;
+  color: var(--color-text);
+}
+
+@media (max-width: 1023px) {
+  .display-title {
+    font-size: clamp(5rem, 28vw, 7.5rem);
+    line-height: 0.82;
+    letter-spacing: -0.04em;
+  }
+
+  .tagline {
+    font-size: clamp(0.9375rem, 4vw, 1.0625rem);
+    font-weight: var(--font-weight-body);
+    letter-spacing: 0.12em;
+    line-height: 1.25;
+    width: 100%;
+    opacity: 1;
+  }
+
+  .display-counter {
+    font-size: clamp(4.5rem, 22vw, 6.25rem);
+    letter-spacing: -0.02em;
+  }
+
+  .member-counter-label {
+    font-size: clamp(0.75rem, 3.1vw, 0.875rem);
+    letter-spacing: 0.14em;
+    line-height: 1.3;
+    width: 100%;
+  }
+
+  .copyright {
+    font-size: clamp(0.5625rem, 2.35vw, 0.625rem);
+    letter-spacing: 0.06em;
+  }
+
+  .footer-tagline {
+    font-size: clamp(0.5625rem, 2.35vw, 0.625rem);
+    letter-spacing: 0.08em;
+    line-height: 1.06;
+  }
+}
+
+/* Desktop hero type is proportional to BOTH width and height (dvh), calibrated
+   on 1280×832 (MacBook Air 13") so every landscape screen keeps the same
+   composition instead of leaving uneven gaps between tagline and CTA. */
+@media (min-width: 1024px) {
+  .display-title {
+    font-size: clamp(6.5rem, min(13.9vw, 21dvh), var(--text-4xl));
+    letter-spacing: -0.05em;
+  }
+
+  .display-counter {
+    /* Width-proportional (5.5vw) like the MacBook reference; the dvh term only
+       reins it in on unusually short viewports so nothing clips */
+    font-size: clamp(3rem, min(5.5vw, 10dvh), var(--text-2xl));
+  }
+
+  .tagline {
+    font-size: clamp(0.9375rem, min(2.5vw, 3.7dvh), var(--text-lg));
+    letter-spacing: 0.12em;
+  }
+
+  .member-counter-label {
+    /* Tracks the counter: 1.8vw growth on wide screens, height-capped */
+    font-size: min(clamp(var(--text-md), 1.8vw, 2.125rem), 3.1dvh);
+    letter-spacing: 0.14em;
+  }
+
+  .nav-link {
+    font-size: var(--text-base);
+  }
+
+  .copyright {
+    letter-spacing: 0.22em;
+    color: var(--color-dark-teal);
+  }
+
+  .footer-tagline {
+    font-size: clamp(0.6875rem, 0.9vw, 0.8125rem);
+    letter-spacing: 0.2em;
+    line-height: 1.1;
+    color: var(--color-dark-teal);
+  }
+}

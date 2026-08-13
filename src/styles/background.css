@@ -1,0 +1,125 @@
+/* ==========================================================================
+   Visual layer stack — mirrors the Figma file z-order:
+     1. page-bg          — studio background (no gradient)
+     2. page-bg-gradient — brand burst image, positioned via tokens
+     3. hero-logo-mark   — large brand watermark at hero bottom
+     4. products         — transparent product cutout (see products.css)
+     5. grain            — noise texture (background only, matches modal)
+     6. page-shell       — UI content (see layout.css)
+   ========================================================================== */
+
+.page {
+  position: relative;
+  width: 100%;
+  height: 100dvh;
+  height: 100svh;
+  overflow: hidden;
+}
+
+.blend-scene {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.page-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-color: var(--color-bg-fallback);
+  background-image: var(--image-bg);
+  background-size: cover;
+  background-position: left center;
+  background-repeat: no-repeat;
+}
+
+.page-bg-gradient {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.page-bg-gradient__image {
+  position: absolute;
+  left: var(--bg-gradient-left);
+  bottom: var(--bg-gradient-bottom);
+  width: var(--bg-gradient-width);
+  aspect-ratio: 6244 / 4817;
+  max-width: none;
+  transform: translate(var(--bg-gradient-translate-x), var(--bg-gradient-translate-y));
+  background-image: var(--image-brand-gradient), var(--image-brand-gradient-fallback);
+  background-size: 100% auto, 100% 100%;
+  background-repeat: no-repeat;
+  background-position: center bottom, center bottom;
+  pointer-events: none;
+}
+
+/* Large brand watermark — sits at hero bottom, aligned with footer chrome */
+.hero-logo-mark {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  pointer-events: none;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  padding: 0 var(--frame-inset-x);
+  padding-bottom: var(--hero-logo-mark-bottom);
+  overflow: hidden;
+}
+
+.hero-logo-mark__image {
+  width: min(130vw, 1680px);
+  max-width: none;
+  height: auto;
+  opacity: 0.07;
+  object-fit: contain;
+  object-position: bottom center;
+  transform: translateY(6%);
+}
+
+@media (max-width: 1023px) {
+  .page-bg {
+    background-position: center top;
+  }
+
+  .hero-logo-mark {
+    display: none;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero-logo-mark {
+    /* Border box reaches viewport bottom; clip the footer band so translateY
+       bleed (the “S”) never paints under the footer chrome. */
+    clip-path: inset(0 0 var(--footer-height) 0);
+  }
+
+  .hero-logo-mark__image {
+    width: min(100vw, 1920px);
+    opacity: 0.05;
+    transform: translateY(4%);
+  }
+}
+
+.grain-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  background-image: var(--image-noise);
+  background-size: var(--grain-size) auto;
+  background-position: center;
+  background-repeat: repeat;
+  mix-blend-mode: overlay;
+}
+
+@media (min-width: 1024px) {
+  .page-bg {
+    background-position: center;
+  }
+}

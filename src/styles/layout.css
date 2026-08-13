@@ -1,0 +1,484 @@
+/* ==========================================================================
+   Page layout — header, hero, footer, and interactive elements
+   Sits above the visual layer stack (z-index: 3).
+   ========================================================================== */
+
+/* --- Page shell --------------------------------------------------------- */
+
+.page-shell {
+  position: relative;
+  z-index: 3;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* --- Glass panels ------------------------------------------------------- */
+
+.header-glass,
+.footer-glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+}
+
+/* Desktop footer frost — fixed layer samples blend-scene behind page-shell.
+   backdrop-filter on the footer itself fails in production because page-shell
+   uses overflow:hidden; position:fixed escapes that and matches dev frost. */
+@media (min-width: 1024px) {
+  .site-footer.footer-glass {
+    position: relative;
+    background: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    isolation: isolate;
+  }
+
+  .site-footer.footer-glass::before,
+  .site-footer.footer-glass::after {
+    content: '';
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: var(--footer-height);
+    pointer-events: none;
+  }
+
+  .site-footer.footer-glass::before {
+    z-index: 2;
+    background: rgba(255, 255, 255, 0.16);
+    backdrop-filter: blur(32px) saturate(1.08);
+    -webkit-backdrop-filter: blur(32px) saturate(1.08);
+  }
+
+  .site-footer.footer-glass::after {
+    z-index: 2;
+    background-image: var(--image-noise);
+    background-size: var(--grain-size) auto;
+    background-position: center;
+    background-repeat: repeat;
+    mix-blend-mode: overlay;
+    opacity: 0.42;
+  }
+
+  .site-footer.footer-glass .footer-inner {
+    z-index: 3;
+  }
+}
+
+.nav-box {
+  border: 2px solid var(--color-border);
+}
+
+/* --- Header ------------------------------------------------------------- */
+
+.site-header {
+  flex-shrink: 0;
+}
+
+.header-inner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: var(--header-height);
+  padding: var(--space-sm) var(--frame-inset-x);
+}
+
+.header-inner::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--color-border);
+}
+
+.logo-link {
+  flex-shrink: 0;
+  line-height: 0;
+}
+
+.site-header .logo {
+  height: var(--chrome-logo-height);
+  width: auto;
+  opacity: 0.79;
+}
+
+.site-header .nav-desktop {
+  position: relative;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--chrome-nav-min-width);
+  min-height: var(--chrome-nav-min-height);
+  padding: 8px clamp(20px, 2.5vw, 36px);
+}
+
+.nav-desktop__links {
+  display: flex;
+  align-items: center;
+  gap: clamp(24px, 2.8vw, 48px);
+  filter: blur(4px);
+  opacity: 0.45;
+  pointer-events: none;
+  user-select: none;
+}
+
+.site-header .nav-desktop__links a {
+  white-space: nowrap;
+}
+
+.site-header .lock-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  background: transparent;
+  border: none;
+  color: var(--color-text);
+  transition: opacity 0.2s;
+  flex-shrink: 0;
+}
+
+.site-header .lock-btn:hover {
+  opacity: 0.55;
+}
+
+.site-header .lock-btn.nav-desktop__lock {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+}
+
+.site-header .lock-btn__icon {
+  width: var(--chrome-lock-icon);
+  height: var(--chrome-lock-icon);
+  display: block;
+}
+
+.site-header .lock-btn--mobile-only {
+  width: var(--chrome-lock-btn-mobile);
+  height: var(--chrome-lock-btn-mobile);
+  border: 2px solid var(--color-border);
+}
+
+@media (min-width: 1024px) {
+  .site-header .nav-desktop {
+    display: flex;
+  }
+
+  .site-header .lock-btn--mobile-only {
+    display: none;
+  }
+}
+
+/* --- Hero --------------------------------------------------------------- */
+
+.hero {
+  display: flex;
+  align-items: stretch;
+  min-height: 0;
+  padding: var(--space-phi-2) var(--frame-inset-x);
+  overflow: hidden;
+}
+
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  flex: 1;
+  width: 100%;
+  max-width: var(--hero-content-max);
+  min-height: 0;
+}
+
+.hero-heading {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-phi-1);
+  width: fit-content;
+  max-width: 100%;
+  flex-shrink: 0;
+}
+
+.hero-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-phi-1);
+  width: 100%;
+  max-width: 100%;
+  flex-shrink: 0;
+  margin-top: auto;
+  padding-top: calc(var(--space-phi-2) + var(--space-unit));
+  padding-bottom: var(--space-phi-1);
+}
+
+@media (max-width: 1023px) {
+  .hero {
+    padding: var(--space-phi-2) var(--frame-inset-x) var(--space-unit);
+  }
+
+  .hero-heading {
+    gap: var(--space-phi-1);
+  }
+
+  .hero-actions {
+    gap: var(--space-phi-1);
+    padding-top: var(--space-phi-2);
+    padding-bottom: var(--space-unit);
+  }
+}
+
+/* Desktop hero rhythm scales with viewport height (dvh), calibrated on
+   1280×832 (MacBook Air 13") so all landscape screens share one composition:
+   heading fills the top, CTA + counter pin to the bottom, gap stays even. */
+@media (min-width: 1024px) {
+  .hero {
+    padding: clamp(24px, 5dvh, 64px) var(--frame-inset-x);
+  }
+
+  .hero-heading {
+    gap: clamp(10px, 1.95dvh, 24px);
+  }
+
+  .hero-actions {
+    padding-top: clamp(16px, 6dvh, 72px);
+    padding-bottom: clamp(12px, 3dvh, 28px);
+    gap: clamp(10px, 1.95dvh, 24px);
+    /* 40.6vw = 520px at the 1280-wide reference; widens on larger screens */
+    max-width: min(clamp(440px, 40.6vw, 640px), 100%);
+  }
+}
+
+/* --- Waitlist CTA — button + offer note -------------------------------- */
+
+.waitlist-cta {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: clamp(8px, 1.4vh, 12px);
+  width: 100%;
+}
+
+.waitlist-cta__offer {
+  margin: 0;
+  padding-inline: 0.15em;
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-body);
+  font-size: clamp(0.6875rem, 2.2vw, 0.8125rem);
+  line-height: 1.35;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--color-text);
+}
+
+/* --- Waitlist button — φ² (~42px) -------------------------------------- */
+
+.waitlist-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-phi-2);
+  width: 100%;
+  min-height: calc(var(--text-lg) + var(--space-phi-2));
+  padding-inline: var(--space-phi-2);
+  padding-block: var(--space-phi-1);
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-display);
+  font-size: clamp(1.75rem, 2.8vw, var(--text-lg));
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-text);
+  background-color: var(--cta-fill);
+  border: 2px solid var(--color-text);
+  border-radius: 4px;
+  transition:
+    background-color 0.35s ease-in-out,
+    border-color 0.35s ease-in-out,
+    color 0.35s ease-in-out;
+}
+
+.waitlist-btn__label {
+  text-box-trim: trim-both;
+  text-box-edge: cap alphabetic;
+}
+
+.waitlist-btn:hover {
+  background-color: var(--cta-fill-hover);
+  border-color: var(--cta-border-hover);
+  color: var(--color-text);
+}
+
+.waitlist-btn__icon {
+  width: clamp(1.375rem, 2.2vw, 1.875rem);
+  height: auto;
+  flex-shrink: 0;
+  display: block;
+  transform: rotate(-45deg);
+  transition: opacity 0.35s ease-in-out;
+}
+
+.waitlist-btn:hover .waitlist-btn__icon {
+  opacity: 0.7;
+}
+
+/* Desktop waitlist — height-proportional, calibrated on 1280×832.
+   Generous caps let the CTA keep scaling on tall screens (1512×982, 1920×1080)
+   so leftover height doesn't pool into the gap above it. */
+@media (min-width: 1024px) {
+  .waitlist-cta {
+    gap: clamp(10px, 1.6dvh, 14px);
+  }
+
+  .waitlist-cta__offer {
+    font-size: clamp(0.75rem, min(1.1vw, 1.6dvh), 0.875rem);
+    letter-spacing: 0.14em;
+  }
+
+  .waitlist-btn {
+    min-height: clamp(44px, 8dvh, 88px);
+    font-size: clamp(1.25rem, min(2.8vw, 4.2dvh), 3rem);
+    padding-block: clamp(8px, 1.95dvh, 22px);
+  }
+
+  .waitlist-btn__icon {
+    width: clamp(1.25rem, min(2.2vw, 3.4dvh), 2.25rem);
+  }
+}
+
+/* --- Member counter ----------------------------------------------------- */
+
+.member-counter {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.125rem;
+  width: 100%;
+  max-width: 100%;
+}
+
+/* --- Footer ------------------------------------------------------------- */
+
+.site-footer {
+  flex-shrink: 0;
+}
+
+.footer-inner {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) max-content;
+  align-items: center;
+  gap: clamp(12px, 3vw, 32px);
+  min-height: var(--footer-height);
+  padding: var(--space-md) var(--frame-inset-x);
+  z-index: 1;
+}
+
+.footer-inner::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--color-border);
+}
+
+/* Mobile chrome — placed after base footer styles so overrides win */
+@media (max-width: 1023px) {
+  .header-inner,
+  .footer-inner {
+    height: var(--header-height);
+    min-height: var(--header-height);
+    padding: var(--space-unit) var(--frame-inset-x);
+  }
+
+  /* Keep the bottom gradient visible — glass + backdrop-filter paints a solid
+     band over the gradient until the asset finishes loading on mobile. */
+  .footer-glass {
+    background: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  .footer-inner {
+    gap: clamp(10px, 2.5vw, 16px);
+  }
+
+  .copyright {
+    flex-shrink: 1;
+    min-width: 0;
+    line-height: 1.06;
+  }
+}
+
+.copyright {
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: baseline;
+  gap: 0.35em;
+  line-height: 1.08;
+  flex-shrink: 1;
+  min-width: 0;
+}
+
+.copyright span {
+  display: inline;
+  white-space: nowrap;
+}
+
+.footer-tagline {
+  margin: 0;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+/* Mobile waitlist — placed after base button styles so overrides win */
+@media (max-width: 1023px) {
+  .waitlist-cta {
+    gap: 10px;
+  }
+
+  .waitlist-cta__offer {
+    font-size: clamp(0.625rem, 2.8vw, 0.75rem);
+    letter-spacing: 0.1em;
+  }
+
+  .waitlist-btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-phi-1);
+    min-height: clamp(52px, 14vw, 60px);
+    padding-inline: var(--space-phi-2);
+    padding-block: var(--space-phi-1);
+    font-size: clamp(1rem, 4.5vw, 1.25rem);
+    letter-spacing: 0.24em;
+  }
+
+  .waitlist-btn__label {
+    white-space: nowrap;
+    flex: 1 1 auto;
+    min-width: 0;
+    text-align: left;
+  }
+
+  .waitlist-btn__icon {
+    position: static;
+    flex-shrink: 0;
+    width: clamp(1.125rem, 4vw, 1.375rem);
+    transform: rotate(-45deg);
+  }
+}

@@ -1,0 +1,202 @@
+/* ==========================================================================
+   Design tokens — single source of truth for spacing, type, and layout.
+   Breakpoints: 768px (tablet), 1024px (desktop)
+
+   Golden ratio (φ ≈ 1.618) drives both type and spacing scales.
+   Base: 16px body → 26 → 42 → 68 → 110 → 178 → 288
+   ========================================================================== */
+
+:root {
+  /* Golden ratio */
+  --phi: 1.618;
+
+  /* Typography families — see /guidelines.md */
+  --font-display: 'Archivo Condensed', sans-serif;
+  --font-body: 'Just Sans', sans-serif;
+  --font-weight-display: 400;
+  --font-weight-body: 400;
+  --font-weight-body-emphasis: 500;
+
+  /* Golden ratio type scale (base 16px) */
+  --text-xs: 0.618rem;   /* ~10px  — captions, copyright */
+  --text-sm: 0.75rem;    /* ~12px  — nav, fine print */
+  --text-base: 1rem;     /* 16px   — body, tagline */
+  --text-md: 1.618rem;   /* ~26px  — sublabels */
+  --text-lg: 2.618rem;   /* ~42px  — CTA */
+  --text-xl: 4.236rem;   /* ~68px  — counter */
+  --text-2xl: 6.854rem;  /* ~110px — display secondary */
+  --text-3xl: 11.09rem;  /* ~178px — display primary */
+  --text-4xl: 17.94rem;  /* ~288px — display max */
+
+  /* Golden ratio spacing rhythm (base unit 10px) */
+  --space-unit: 0.625rem;
+  --space-phi-1: calc(var(--space-unit) * var(--phi)); /* ~16px */
+  --space-phi-2: calc(var(--space-phi-1) * var(--phi)); /* ~26px */
+  --space-phi-3: calc(var(--space-phi-2) * var(--phi)); /* ~42px */
+  --space-phi-4: calc(var(--space-phi-3) * var(--phi)); /* ~68px */
+
+  /* Legacy aliases — map to φ scale for consistency */
+  --space-2xs: var(--space-unit);
+  --space-xs: var(--space-phi-1);
+  --space-sm: var(--space-phi-1);
+  --space-md: var(--space-phi-2);
+  --space-lg: var(--space-phi-3);
+  --space-xl: var(--space-phi-4);
+
+  /* Colours — see /guidelines.md */
+  --color-dark-teal: #050505;
+  --color-light-teal: #e3f0f5;
+  --color-white: #ffffff;
+  --color-chrome-mid: #50636b;
+  --color-chrome-light: #93bccd;
+
+  --color-text: #1a1a1a;
+  --color-border: rgba(0, 0, 0, 0.45);
+  --color-bg-fallback: #3d4550;
+
+  /* CTA glass fill — Light Teal Blue @ 16% (Figma) */
+  --cta-fill: rgba(227, 240, 245, 0.16);
+  --cta-fill-hover: rgba(26, 26, 26, 0.1);
+  --cta-border-hover: rgba(26, 26, 26, 0.55);
+
+  /* Glass panels */
+  --glass-bg: rgba(255, 255, 255, 0.06);
+  --glass-blur: 16px;
+
+  /* Frame — shared horizontal inset for header, hero, footer */
+  --frame-inset-x: clamp(18px, 5.5vw, 28px);
+
+  /* Chrome heights — mobile bar sized to lock button + vertical padding */
+  --header-height: calc(var(--chrome-lock-btn-mobile) + (var(--space-unit) * 2));
+  --footer-height: var(--header-height);
+
+  /* Header / footer asset sizes — mobile */
+  --chrome-logo-height: clamp(16px, 4vw, 22px);
+  --chrome-nav-min-height: 48px;
+  --chrome-nav-min-width: clamp(340px, 38vw, 520px);
+  --chrome-lock-icon: 12px;
+  --chrome-lock-btn-mobile: 32px;
+  --chrome-social-icon: clamp(13px, 3.2vw, 17px);
+
+  /* Hero logo watermark — bottom inset aligns with footer chrome */
+  --hero-logo-mark-bottom: clamp(56px, 11vh, 84px);
+
+  /* Hero content width */
+  --hero-content-max: 100%;
+
+  /* Product layer — mobile: tall vertical, centered over lower third */
+  --products-top-gap: 29vh;
+  --products-height: min(72dvh, 680px);
+  --products-max-width: min(108vw, 460px);
+  --products-bottom: clamp(48px, 8vh, 76px);
+
+  /* Brand imagery — variants are picked per breakpoint rather than by
+     image-set resolution descriptors, because a WebP costs width × height × 4
+     bytes of RAM once decoded and the full-size masters (7712 × 5140 and
+     6244 × 4817) alone exceed the iOS WKWebView memory ceiling. Only the
+     winning custom-property value is ever fetched. */
+  --image-bg: image-set(
+    url('/main_brand/background-1600.webp') type('image/webp'),
+    url('/main_brand/background-1600.png') type('image/png')
+  );
+  --image-brand-gradient: image-set(
+    url('/main_brand/brand_gradient-1200.webp') type('image/webp'),
+    url('/main_brand/brand_gradient-1200.png') type('image/png')
+  );
+  /* Instant bottom glow while the brand gradient asset loads */
+  --image-brand-gradient-fallback: radial-gradient(
+    ellipse 140% 95% at 42% 100%,
+    rgba(196, 255, 60, 0.72) 0%,
+    rgba(150, 220, 70, 0.38) 38%,
+    rgba(90, 130, 110, 0.12) 62%,
+    transparent 82%
+  );
+  /* Brand gradient — tuned at 1920×1080 desktop */
+  --bg-gradient-width: 100vw;
+  --bg-gradient-translate-x: -50%;
+  --bg-gradient-translate-y: 50%;
+  --bg-gradient-left: calc(336 / 1920 * 100vw);
+  --bg-gradient-bottom: calc(55 / 1080 * 100svh);
+  --image-noise: image-set(
+    url('/assets/noise-texture-1024.webp') type('image/webp'),
+    url('/assets/noise-texture-1024.png') type('image/png')
+  );
+  --image-modal-bg: url('/main_brand/modal_background-800.webp');
+  /* Match modal panel width so page grain density equals the popup */
+  --grain-size: min(92vw, 680px);
+}
+
+@media (max-width: 767px) {
+  :root {
+    --image-bg: image-set(
+      url('/main_brand/bg-mobile-v2-1200.webp') type('image/webp'),
+      url('/main_brand/bg-mobile-v2-1200.png') type('image/png')
+    );
+  }
+}
+
+@media (max-width: 1023px) {
+  :root {
+    --bg-gradient-width: 185vw;
+    --bg-gradient-translate-y: 28%;
+    --bg-gradient-left: 120px;
+    --bg-gradient-bottom: -120px;
+    --image-brand-gradient-fallback: radial-gradient(
+      ellipse 185% 100% at 58% 100%,
+      rgba(196, 255, 60, 0.72) 0%,
+      rgba(150, 220, 70, 0.38) 38%,
+      rgba(90, 130, 110, 0.12) 62%,
+      transparent 82%
+    );
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  :root {
+    --frame-inset-x: clamp(24px, 4vw, 40px);
+    --chrome-logo-height: clamp(26px, 3.2vw, 32px);
+    --hero-logo-mark-bottom: clamp(64px, 10vh, 96px);
+    --products-top-gap: 24vh;
+    --products-height: min(68dvh, 640px);
+    --products-max-width: min(95vw, 500px);
+    --products-bottom: clamp(64px, 9vh, 92px);
+  }
+}
+
+@media (min-width: 768px) {
+  :root {
+    --hero-logo-mark-bottom: clamp(72px, 9.5vh, 108px);
+    --grain-size: min(88vw, 720px);
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --frame-inset-x: clamp(20px, 4.5vw, 64px);
+    --grain-size: min(72vw, 760px);
+    /* Height-proportional chrome — calibrated on 1280×832 (MacBook Air 13"),
+       scales smoothly on shorter/taller landscape screens instead of jumping */
+    --header-height: clamp(56px, 8.5dvh, 80px);
+    --footer-height: clamp(60px, 9.5dvh, 92px);
+    --chrome-logo-height: clamp(32px, 2.4vw, 36px);
+    --chrome-lock-icon: 16px;
+    --chrome-lock-btn-mobile: 48px;
+    --chrome-social-icon: clamp(18px, 2vw, 22px);
+    --hero-content-max: min(720px, 46vw);
+    --hero-logo-mark-bottom: clamp(80px, 10vh, 120px);
+    --products-top-gap: calc(var(--header-height) + var(--space-phi-1));
+    --products-height: min(94dvh, 1100px);
+    --products-max-width: min(62vw, 1150px);
+    --products-bottom: 0;
+
+    --image-bg: image-set(
+      url('/main_brand/background-2560.webp') type('image/webp'),
+      url('/main_brand/background-1600.png') type('image/png')
+    );
+    --image-brand-gradient: image-set(
+      url('/main_brand/brand_gradient-1920.webp') type('image/webp'),
+      url('/main_brand/brand_gradient-1200.png') type('image/png')
+    );
+    --image-modal-bg: url('/main_brand/modal_background-1400.webp');
+  }
+}

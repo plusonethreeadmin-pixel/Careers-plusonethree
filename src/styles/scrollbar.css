@@ -1,0 +1,71 @@
+/* ==========================================================================
+   Custom scrollbars — brand-aligned, minimal, works site-wide
+   ========================================================================== */
+
+:root {
+  --scrollbar-size: 6px;
+  --scrollbar-track: rgba(5, 5, 5, 0.08);
+  --scrollbar-thumb: rgba(26, 26, 26, 0.32);
+  --scrollbar-thumb-hover: rgba(80, 99, 107, 0.72);
+  --scrollbar-thumb-active: rgba(150, 220, 70, 0.72);
+  --scrollbar-border: rgba(255, 255, 255, 0.18);
+}
+
+/* Firefox */
+html,
+body,
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+}
+
+/* Chromium / Safari */
+*::-webkit-scrollbar {
+  width: var(--scrollbar-size);
+  height: var(--scrollbar-size);
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+  border-radius: 999px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border: 1px solid var(--scrollbar-border);
+  border-radius: 999px;
+  transition: background-color 0.2s ease;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover);
+}
+
+*::-webkit-scrollbar-thumb:active {
+  background: var(--scrollbar-thumb-active);
+}
+
+*::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* Glass panels — subtler track so frost reads cleanly */
+.application-form,
+.application-form__textarea,
+.careers-main,
+.waitlist-select__menu {
+  scrollbar-color: var(--scrollbar-thumb) transparent;
+}
+
+.application-form::-webkit-scrollbar-track,
+.application-form__textarea::-webkit-scrollbar-track,
+.careers-main::-webkit-scrollbar-track,
+.waitlist-select__menu::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *::-webkit-scrollbar-thumb {
+    transition: none;
+  }
+}

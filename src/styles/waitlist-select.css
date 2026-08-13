@@ -1,0 +1,191 @@
+/* ==========================================================================
+   Waitlist custom select — glass trigger, portaled menu, brand-aligned
+   ========================================================================== */
+
+.waitlist-select {
+  position: relative;
+  width: 100%;
+}
+
+.waitlist-select__trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  width: 100%;
+  min-height: var(--waitlist-modal-field-height);
+  padding: 0.75rem 1rem;
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  font-weight: var(--font-weight-body);
+  line-height: 1.35;
+  text-align: left;
+  color: var(--color-text);
+  background: rgba(255, 255, 255, 0.42);
+  border: 1.5px solid rgba(26, 26, 26, 0.35);
+  border-radius: 4px;
+  outline: none;
+  cursor: pointer;
+  transition:
+    border-color 0.25s ease,
+    background-color 0.25s ease,
+    box-shadow 0.25s ease,
+    transform 0.25s ease;
+}
+
+.waitlist-select__value {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.waitlist-select__value--placeholder {
+  color: rgba(26, 26, 26, 0.52);
+}
+
+.waitlist-select__chevron {
+  flex-shrink: 0;
+  width: 1rem;
+  height: 1rem;
+  color: rgba(26, 26, 26, 0.62);
+  transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.waitlist-select--open .waitlist-select__chevron {
+  transform: rotate(180deg);
+  color: var(--color-text);
+}
+
+.waitlist-select__trigger:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.52);
+  border-color: rgba(26, 26, 26, 0.48);
+}
+
+.waitlist-select__trigger:focus-visible {
+  background: rgba(255, 255, 255, 0.58);
+  border-color: rgba(26, 26, 26, 0.65);
+  box-shadow: 0 0 0 3px rgba(227, 240, 245, 0.45);
+}
+
+.waitlist-select--open .waitlist-select__trigger {
+  background: rgba(255, 255, 255, 0.62);
+  border-color: rgba(26, 26, 26, 0.58);
+  box-shadow: 0 0 0 3px rgba(227, 240, 245, 0.35);
+}
+
+.waitlist-select--disabled .waitlist-select__trigger {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.waitlist-select__menu {
+  margin: 0;
+  padding: 0.35rem;
+  list-style: none;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  border: 1.5px solid rgba(26, 26, 26, 0.14);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow:
+    0 16px 48px rgba(5, 5, 5, 0.14),
+    0 4px 12px rgba(5, 5, 5, 0.08);
+  opacity: 0;
+  transform: translateY(-8px) scale(0.985);
+  transform-origin: top center;
+  pointer-events: none;
+  transition:
+    opacity 0.22s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.waitlist-select__menu--visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+.waitlist-select__menu--upward {
+  transform-origin: bottom center;
+}
+
+.waitlist-select__menu--upward:not(.waitlist-select__menu--visible) {
+  transform: translateY(8px) scale(0.985);
+}
+
+.waitlist-select__option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.625rem 0.75rem;
+  font-family: var(--font-body);
+  font-size: clamp(0.875rem, 2.4vw, 0.9375rem);
+  font-weight: var(--font-weight-body);
+  line-height: 1.35;
+  color: var(--color-text);
+  border-radius: 3px;
+  cursor: pointer;
+  transition:
+    background-color 0.18s ease,
+    color 0.18s ease;
+}
+
+.waitlist-select__option-label {
+  flex: 1;
+  min-width: 0;
+}
+
+.waitlist-select__option--highlighted,
+.waitlist-select__option:hover {
+  background: rgba(227, 240, 245, 0.72);
+}
+
+.waitlist-select__option--selected {
+  font-weight: var(--font-weight-body-emphasis);
+  background: rgba(227, 240, 245, 0.55);
+}
+
+.waitlist-select__option--selected.waitlist-select__option--highlighted,
+.waitlist-select__option--selected:hover {
+  background: rgba(227, 240, 245, 0.88);
+}
+
+.waitlist-select__check {
+  flex-shrink: 0;
+  width: 0.875rem;
+  height: 0.875rem;
+  color: rgba(26, 26, 26, 0.72);
+}
+
+@media (max-width: 767px) {
+  .waitlist-select__trigger {
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+  }
+
+  .waitlist-select__option {
+    padding: 0.7rem 0.75rem;
+    font-size: 0.9375rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .waitlist-select__chevron,
+  .waitlist-select__menu,
+  .waitlist-select__option {
+    transition: none;
+  }
+
+  .waitlist-select__menu {
+    transform: none;
+  }
+
+  .waitlist-select__menu--visible {
+    transform: none;
+  }
+}

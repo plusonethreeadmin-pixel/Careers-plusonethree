@@ -1,0 +1,167 @@
+/* ==========================================================================
+   Careers page layout — two-column desktop, stacked mobile
+   Left column mirrors coming-soon hero alignment (top-left, same padding).
+   ========================================================================== */
+
+.page--careers {
+  height: 100dvh;
+  height: 100svh;
+  overflow: hidden;
+}
+
+.page--careers .page-shell {
+  height: 100%;
+  min-height: 0;
+}
+
+.careers-main {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-phi-2);
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* Left column — reuse .hero / .hero-content from layout.css */
+.careers-hero.hero {
+  flex-shrink: 0;
+  padding: var(--space-phi-2) var(--frame-inset-x) 0;
+}
+
+.careers-hero .hero-content {
+  gap: var(--space-phi-2);
+}
+
+.careers-hero__body {
+  margin: 0;
+  max-width: 34rem;
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-body);
+  font-size: clamp(0.9375rem, 2.4vw, 1.0625rem);
+  line-height: 1.55;
+  letter-spacing: 0.01em;
+  color: var(--color-text);
+}
+
+.careers-form-col {
+  flex: 1 1 auto;
+  min-height: 0;
+  padding: 0 var(--frame-inset-x) var(--space-phi-2);
+}
+
+/* Footer — match coming-soon chrome height and vertical centering */
+.page--careers .site-footer {
+  position: relative;
+  z-index: 4;
+}
+
+.page--careers .footer-inner {
+  align-items: center;
+  padding-block: 0;
+}
+
+.page--careers .copyright {
+  align-items: center;
+  line-height: 1;
+}
+
+.page--careers .footer-tagline {
+  line-height: 1;
+}
+
+@media (max-width: 1023px) {
+  .page--careers .footer-inner {
+    height: var(--header-height);
+    min-height: var(--header-height);
+    padding: 0 var(--frame-inset-x);
+  }
+
+  .careers-main {
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .careers-hero.hero {
+    padding: var(--space-phi-2) var(--frame-inset-x) 0;
+  }
+
+  /* Single-word title is wider than Coming/Soon; size to the column. */
+  .careers-hero .hero-heading {
+    width: 100%;
+    container-type: inline-size;
+  }
+
+  .careers-hero .display-title {
+    max-width: 100%;
+    font-size: clamp(2.75rem, 23cqi, 6.5rem);
+    letter-spacing: -0.05em;
+  }
+
+  .careers-form-col {
+    flex: 0 0 auto;
+    min-height: auto;
+    padding: 0 var(--frame-inset-x) var(--space-phi-2);
+  }
+}
+
+@media (min-width: 1024px) {
+  .page--careers .site-footer {
+    height: var(--footer-height);
+    min-height: var(--footer-height);
+  }
+
+  .page--careers .footer-inner {
+    height: var(--footer-height);
+    min-height: var(--footer-height);
+    padding: 0 var(--frame-inset-x);
+  }
+
+  .careers-main {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+    align-items: stretch;
+    gap: 0;
+    overflow: hidden;
+  }
+
+  .careers-hero.hero {
+    padding: clamp(24px, 5dvh, 64px) var(--frame-inset-x);
+    align-self: start;
+  }
+
+  .careers-hero .hero-content {
+    gap: clamp(16px, 2.8dvh, 28px);
+    max-width: var(--hero-content-max);
+  }
+
+  .careers-hero .hero-heading {
+    gap: clamp(10px, 1.95dvh, 24px);
+  }
+
+  .careers-hero__body {
+    font-size: clamp(0.9375rem, min(1.2vw, 1.8dvh), 1.0625rem);
+    max-width: min(34rem, 100%);
+  }
+
+  .careers-form-col {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    padding: clamp(24px, 5dvh, 64px) var(--frame-inset-x) clamp(12px, 2.5dvh, 24px) 0;
+  }
+
+  .careers-form-col .application-form {
+    flex: 1 1 auto;
+    min-height: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+@media (min-width: 1280px) {
+  .careers-main {
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.15fr);
+  }
+}

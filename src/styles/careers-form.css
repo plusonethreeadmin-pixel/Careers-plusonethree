@@ -1,0 +1,374 @@
+/* ==========================================================================
+   Careers application form — footer glassmorphism + brand form controls
+   ========================================================================== */
+
+:root {
+  --careers-form-field-height: clamp(44px, 5.5vh, 50px);
+  --careers-form-gap: clamp(10px, 1.8vh, 14px);
+  --careers-form-inset: clamp(20px, 3.5vw, 32px);
+  --careers-form-radius: 6px;
+  --waitlist-modal-field-height: var(--careers-form-field-height);
+}
+
+.application-form {
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  max-width: 100%;
+  --application-form-title-size: clamp(1.375rem, 4.2vw, 1.875rem);
+  border-radius: var(--careers-form-radius);
+  border: 1.5px solid rgba(255, 255, 255, 0.22);
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.application-form::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.application-form::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+  pointer-events: none;
+  background-image: var(--image-noise);
+  background-size: var(--grain-size) auto;
+  background-position: center;
+  background-repeat: repeat;
+  mix-blend-mode: overlay;
+  opacity: 0.42;
+}
+
+.application-form__inner {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(16px, 2.8vh, 24px);
+  padding: var(--careers-form-inset);
+}
+
+.application-form__header {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(6px, 1vh, 10px);
+}
+
+.application-form__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-display);
+  font-size: var(--application-form-title-size);
+  line-height: 1;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text);
+}
+
+.application-form__subtitle {
+  margin: 0;
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-body);
+  font-size: clamp(0.6875rem, 2.2vw, 0.8125rem);
+  line-height: 1.35;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(26, 26, 26, 0.72);
+}
+
+.application-form__form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--careers-form-gap);
+  margin: 0;
+}
+
+.application-form__fields {
+  display: flex;
+  flex-direction: column;
+  gap: var(--careers-form-gap);
+}
+
+.application-form__actions {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(8px, 1.2vh, 12px);
+  flex-shrink: 0;
+}
+
+.application-form__row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--careers-form-gap);
+}
+
+.application-form__row--split {
+  grid-template-columns: 1fr;
+}
+
+.application-form__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  min-width: 0;
+}
+
+.application-form__label {
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-body-emphasis);
+  font-size: clamp(0.5625rem, 1.8vw, 0.6875rem);
+  line-height: 1.2;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(26, 26, 26, 0.78);
+}
+
+.application-form__required {
+  color: #d32f2f;
+  font-weight: var(--font-weight-body-emphasis);
+}
+
+.application-form__input,
+.application-form__textarea {
+  width: 100%;
+  min-height: var(--careers-form-field-height);
+  padding: 0.75rem 1rem;
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  color: var(--color-text);
+  background: rgba(255, 255, 255, 0.42);
+  border: 1.5px solid rgba(26, 26, 26, 0.35);
+  border-radius: 4px;
+  outline: none;
+  transition:
+    border-color 0.25s ease,
+    background-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.application-form__input::placeholder,
+.application-form__textarea::placeholder {
+  color: rgba(26, 26, 26, 0.42);
+}
+
+.application-form__input:focus,
+.application-form__textarea:focus {
+  background: rgba(255, 255, 255, 0.58);
+  border-color: rgba(26, 26, 26, 0.65);
+  box-shadow: 0 0 0 3px rgba(227, 240, 245, 0.45);
+}
+
+.application-form__textarea-wrap {
+  position: relative;
+}
+
+.application-form__textarea {
+  min-height: clamp(120px, 18vh, 160px);
+  resize: vertical;
+  padding-bottom: 1.75rem;
+}
+
+.application-form__char-count {
+  position: absolute;
+  right: 0.75rem;
+  bottom: 0.625rem;
+  font-family: var(--font-body);
+  font-size: clamp(0.5625rem, 1.6vw, 0.6875rem);
+  letter-spacing: 0.06em;
+  color: rgba(26, 26, 26, 0.52);
+  pointer-events: none;
+}
+
+.application-form__error {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: clamp(0.6875rem, 2.2vw, 0.8125rem);
+  line-height: 1.35;
+  color: #8b1e1e;
+}
+
+.application-form__submit.waitlist-btn {
+  min-height: clamp(44px, 5.5dvh, 52px);
+  height: auto;
+  padding-inline: var(--space-phi-2);
+  padding-block: var(--space-phi-1);
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-display);
+  font-size: var(--application-form-title-size);
+  letter-spacing: 0.06em;
+  line-height: 1.1;
+  gap: var(--space-phi-1);
+  border-width: 2px;
+  justify-content: center;
+  align-items: center;
+}
+
+.application-form__submit .waitlist-btn__label {
+  text-box-trim: trim-both;
+  text-box-edge: cap alphabetic;
+}
+
+.application-form__submit .waitlist-btn__icon {
+  width: clamp(0.875rem, 2.2vw, 1.125rem);
+}
+
+@media (min-width: 640px) {
+  .application-form__row--split {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 767px) {
+  .application-form__input,
+  .application-form__textarea {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 1023px) {
+  .application-form__submit.waitlist-btn {
+    min-height: clamp(48px, 12vw, 56px);
+    padding-block: var(--space-phi-1);
+    padding-inline: var(--space-phi-2);
+  }
+}
+
+@media (min-width: 1024px) {
+  .application-form {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    min-height: 0;
+    height: 100%;
+    overflow: hidden;
+    backdrop-filter: blur(32px) saturate(1.08);
+    -webkit-backdrop-filter: blur(32px) saturate(1.08);
+    background: rgba(255, 255, 255, 0.16);
+  }
+
+  .application-form::before {
+    background: transparent;
+  }
+
+  .application-form__inner {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    min-height: 0;
+    height: 100%;
+    gap: clamp(18px, 2.8dvh, 28px);
+    padding: clamp(24px, 3.4dvh, 36px) clamp(24px, 2.8vw, 36px);
+  }
+
+  .application-form {
+    --application-form-title-size: clamp(1.5rem, 2.2vw, 1.875rem);
+  }
+
+  .application-form__header {
+    flex-shrink: 0;
+    gap: clamp(8px, 1.2dvh, 12px);
+  }
+
+  .application-form__form {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    min-height: 0;
+    gap: clamp(14px, 2dvh, 18px);
+  }
+
+  .application-form__fields {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    min-height: 0;
+    gap: clamp(12px, 1.8dvh, 16px);
+    overflow: hidden;
+  }
+
+  .application-form__actions {
+    flex-shrink: 0;
+    gap: clamp(8px, 1.2dvh, 12px);
+    padding-top: clamp(2px, 0.4dvh, 4px);
+  }
+
+  .application-form__row {
+    flex-shrink: 0;
+    gap: clamp(12px, 1.8dvh, 16px);
+  }
+
+  .application-form__row--grow {
+    flex: 1 1 auto;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .application-form__field {
+    gap: 0.5rem;
+  }
+
+  .application-form__field--textarea {
+    flex: 1 1 auto;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .application-form__textarea-wrap {
+    position: relative;
+    flex: 1 1 auto;
+    min-height: clamp(72px, 10dvh, 120px);
+    max-height: 100%;
+    overflow: hidden;
+  }
+
+  .application-form__textarea {
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    max-height: 100%;
+    resize: none;
+    padding-block: 0.75rem;
+    padding-bottom: 1.75rem;
+    overflow-y: auto;
+  }
+
+  .application-form__input,
+  .application-form .waitlist-select__trigger {
+    min-height: clamp(44px, 5.5dvh, 50px);
+    padding-block: 0.75rem;
+  }
+
+  .application-form__submit.waitlist-btn {
+    flex-shrink: 0;
+    min-height: clamp(44px, 5.5dvh, 52px);
+    padding-inline: var(--space-phi-2);
+    padding-block: clamp(10px, 1.4dvh, var(--space-phi-1));
+    margin-top: 0;
+  }
+
+  .application-form__submit .waitlist-btn__icon {
+    width: clamp(0.875rem, 1.6vw, 1.0625rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .application-form__input,
+  .application-form__textarea {
+    transition: none;
+  }
+}
