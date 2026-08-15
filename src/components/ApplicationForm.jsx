@@ -5,10 +5,12 @@ import {
   SITE_COPY,
 } from '../constants/site'
 import {
+  countWords,
   getApplicationValidationError,
   isApplicationDuplicateError,
   submitApplication,
   WHY_YOU_MAX,
+  WHY_YOU_MIN_WORDS,
 } from '../lib/careers'
 import CareerSelect from './CareerSelect'
 
@@ -233,6 +235,7 @@ export default function ApplicationForm() {
                   required
                 />
                 <span className="application-form__char-count" aria-live="polite">
+                  {countWords(form.whyYou)}/{WHY_YOU_MIN_WORDS} words min ·{' '}
                   {form.whyYou.length}/{WHY_YOU_MAX}
                 </span>
               </div>

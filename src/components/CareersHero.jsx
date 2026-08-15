@@ -12,6 +12,9 @@ export default function CareersHero() {
           <StretchText className="tagline" text={SITE_COPY.careersTagline} />
         </div>
         <p className="careers-hero__body">{SITE_COPY.careersBody}</p>
+        <p className="careers-hero__note">
+          <strong>Note:</strong> {SITE_COPY.careersNote}
+        </p>
       </div>
     </section>
   )

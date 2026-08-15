@@ -14,6 +14,8 @@ export const SITE_COPY = {
   careersTagline: 'Every role serves a purpose.',
   careersBody:
     "We're always looking for driven individuals who want to push boundaries and build with purpose. If you've got the mindset, we'd love to hear from you.",
+  careersNote:
+    'Please submit only one application per applicant. Multiple submissions or repeated/spam applications may be considered a violation of the application guidelines. In such cases, all submissions from the applicant may be deemed invalid and will not be considered for further processing.',
   formTitle: 'Application Form',
   formSubtitle: 'Fill in all the details below to apply.',
   formSubmit: 'Submit Application',

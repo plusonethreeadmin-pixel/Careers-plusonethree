@@ -48,6 +48,21 @@
   color: var(--color-text);
 }
 
+.careers-hero__note {
+  margin: var(--space-phi-1) 0 0;
+  max-width: 34rem;
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-body);
+  font-size: clamp(0.8125rem, 2.1vw, 0.9375rem);
+  line-height: 1.55;
+  letter-spacing: 0.01em;
+  color: var(--color-text);
+}
+
+.careers-hero__note strong {
+  font-weight: var(--font-weight-body-emphasis);
+}
+
 .careers-form-col {
   flex: 1 1 auto;
   min-width: 0;

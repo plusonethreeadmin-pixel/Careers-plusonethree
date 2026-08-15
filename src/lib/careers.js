@@ -1,6 +1,12 @@
 import { LOCATION_OPTIONS, ROLE_OPTIONS } from '../constants/site'
 
+export const WHY_YOU_MIN_WORDS = 15
 export const WHY_YOU_MAX = 500
+
+export function countWords(text) {
+  if (!text?.trim()) return 0
+  return text.trim().split(/\s+/).length
+}
 const PHONE_DIGIT_LENGTH = 10
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 const LINKEDIN_REGEX = /^https?:\/\/.+/i
@@ -41,6 +47,10 @@ export function getApplicationValidationError(form) {
     return 'Please select a work mode.'
   }
   if (!whyYou) return 'Please tell us why you are the right fit.'
+  const wordCount = countWords(whyYou)
+  if (wordCount < WHY_YOU_MIN_WORDS) {
+    return `Why You must be at least ${WHY_YOU_MIN_WORDS} words.`
+  }
   if (whyYou.length > WHY_YOU_MAX) {
     return `Why You must be ${WHY_YOU_MAX} characters or fewer.`
   }
