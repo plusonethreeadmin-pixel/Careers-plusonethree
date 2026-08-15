@@ -35,8 +35,7 @@ jobs:
           VITE_CAREERS_API_URL: https://plusonethree-careers.plusonethreeadmin.workers.dev
 
       - name: Deploy to Cloudflare Pages
-        uses: cloudflare/wrangler-action@v3
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy dist --project-name=plusonethree-careers
+        run: npx wrangler@4 pages deploy dist --project-name=plusonethree-careers
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
