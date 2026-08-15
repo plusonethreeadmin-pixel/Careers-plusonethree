@@ -17,7 +17,7 @@ export const SITE_COPY = {
   careersNote:
     'Please submit only one application per applicant. Multiple submissions or repeated/spam applications may be considered a violation of the application guidelines. In such cases, all submissions from the applicant may be deemed invalid and will not be considered for further processing.',
   formTitle: 'Application Form',
-  formSubtitle: 'Fill in all the details below to submit your application.',
+  formSubtitle: 'Fill in all the details below to apply.',
   formSubmit: 'Submit Application',
   formWorkModeLabel: 'Work Mode',
   formWhyYouPlaceholder:
