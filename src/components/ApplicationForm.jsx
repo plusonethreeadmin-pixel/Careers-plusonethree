@@ -165,11 +165,11 @@ export default function ApplicationForm() {
           <div className="application-form__row application-form__row--split">
             <div className="application-form__field">
               <label className="application-form__label" htmlFor={`${formId}-role`}>
-                Role You Are Applying For <RequiredMark />
+                Role <RequiredMark />
               </label>
               <CareerSelect
                 id={`${formId}-role`}
-                label="Role you are applying for"
+                label="Role"
                 placeholder="Select a role"
                 options={ROLE_OPTIONS}
                 value={form.role}
