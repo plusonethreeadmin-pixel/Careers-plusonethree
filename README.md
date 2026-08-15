@@ -1,16 +1,69 @@
-# React + Vite
+# PlusOneThree Careers
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Careers application site for PlusOneThree. Applicants submit the form on this frontend; a Cloudflare Worker validates the payload, stores it in Supabase, and sends notification emails via Resend.
 
-Currently, two official plugins are available:
+**Live site:** https://plusonethree-careers.pages.dev
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Stack
 
-## React Compiler
+| Layer | Tech |
+|-------|------|
+| Frontend | React + Vite |
+| API | Cloudflare Worker (`plusonethree-careers`) |
+| Database | Supabase (`career_applications`) |
+| Email | Resend |
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Local development
 
-## Expanding the ESLint configuration
+```bash
+npm install
+cp .env.example .env
+npm run dev
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Set `VITE_CAREERS_API_URL` in `.env` to the careers Worker URL (see `.env.example`).
+
+## Scripts
+
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Start Vite dev server |
+| `npm run build` | Production build → `dist/` |
+| `npm run preview` | Preview production build locally |
+| `npm run lint` | Run ESLint |
+
+## Deployment
+
+Deployments run through **GitHub Actions only** on push to `main`.
+
+Workflow: `.github/workflows/deploy-pages.yml`
+
+1. Install dependencies and build with `VITE_CAREERS_API_URL`
+2. Deploy `dist/` to Cloudflare Pages project `plusonethree-careers`
+
+### Required GitHub secrets
+
+| Secret | Description |
+|--------|-------------|
+| `CLOUDFLARE_API_TOKEN` | Cloudflare API token with **Account → Cloudflare Pages → Edit** |
+| `CLOUDFLARE_ACCOUNT_ID` | Cloudflare account ID |
+
+Do **not** enable Cloudflare Pages native Git builds with a custom `wrangler deploy` command — use GitHub Actions instead.
+
+### Manual deploy (optional)
+
+```bash
+npm run build
+npx wrangler pages deploy dist --project-name=plusonethree-careers
+```
+
+Requires Wrangler auth locally (`CLOUDFLARE_API_TOKEN` env var or `wrangler login`).
+
+## Related repos
+
+- **Frontend:** [plusonethreeadmin-pixel/Careers-plusonethree](https://github.com/plusonethreeadmin-pixel/Careers-plusonethree)
+- **Worker:** `careers-worker/` in the PlusOn monorepo (`plusonethree-careers` on Cloudflare)
+
+## License
+
+Private — PlusOneThree.
