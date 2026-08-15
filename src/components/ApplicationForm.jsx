@@ -161,7 +161,7 @@ export default function ApplicationForm() {
                 name="linkedin"
                 value={form.linkedin}
                 onChange={(event) => updateField('linkedin', event.target.value)}
-                placeholder="Enter your LinkedIn profile URL"
+                placeholder="www.linkedin.com/in/your-profile"
                 required
               />
             </div>

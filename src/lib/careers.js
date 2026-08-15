@@ -9,7 +9,11 @@ export function countWords(text) {
 }
 const PHONE_DIGIT_LENGTH = 10
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-const LINKEDIN_REGEX = /^https?:\/\/.+/i
+const LINKEDIN_REGEX = /^(https?:\/\/|www\.).+/i
+
+function normalizeLinkedInUrl(url) {
+  return /^www\./i.test(url) ? `https://${url}` : url
+}
 
 const ROLE_VALUES = new Set(ROLE_OPTIONS.map((o) => o.value))
 const WORK_MODE_VALUES = new Set(LOCATION_OPTIONS.map((o) => o.value))
@@ -72,7 +76,7 @@ export async function submitApplication(form) {
       fullName: form.fullName.trim(),
       contactNumber: form.contactNumber.trim(),
       email: form.email.trim().toLowerCase(),
-      linkedin: form.linkedin.trim(),
+      linkedin: normalizeLinkedInUrl(form.linkedin.trim()),
       social: form.social?.trim() || undefined,
       role: form.role,
       workMode: form.location,
