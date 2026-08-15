@@ -43,6 +43,11 @@ export default function ApplicationForm() {
     setOpenSelect(isOpen ? field : null)
   }, [])
 
+  const whyYouPlaceholder =
+    form.role === 'other'
+      ? SITE_COPY.formWhyYouPlaceholderOther
+      : SITE_COPY.formWhyYouPlaceholder
+
   const handleSubmit = async (event) => {
     event.preventDefault()
     setSubmitError('')
@@ -206,7 +211,7 @@ export default function ApplicationForm() {
                   onChange={(event) =>
                     updateField('whyYou', event.target.value.slice(0, WHY_YOU_MAX))
                   }
-                  placeholder="Tell us why you're the right fit for PlusOneThree."
+                  placeholder={whyYouPlaceholder}
                   required
                 />
                 <span className="application-form__char-count" aria-live="polite">

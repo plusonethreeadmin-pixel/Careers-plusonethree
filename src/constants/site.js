@@ -18,6 +18,10 @@ export const SITE_COPY = {
   formSubtitle: 'Please fill in all the details to apply.',
   formSubmit: 'Submit Application',
   formWorkModeLabel: 'Work Mode',
+  formWhyYouPlaceholder:
+    "Tell us why you're the right fit for PlusOneThree.",
+  formWhyYouPlaceholderOther:
+    "Describe the role you're interested in and why you'd be a strong fit for PlusOneThree.",
   copyrightLines: ['©2026 PLUSONETHREE.', 'All Rights Reserved.'],
   footerTagline: 'FUELING YOU SOON',
 }
@@ -27,6 +31,7 @@ export const ROLE_OPTIONS = [
   { value: 'operations', label: 'Operations' },
   { value: 'marketeer', label: 'Marketeer' },
   { value: 'content-strategist', label: 'Content Strategist' },
+  { value: 'other', label: 'Other' },
 ]
 
 export const LOCATION_OPTIONS = [
