@@ -1,5 +1,6 @@
 /* ==========================================================================
    Careers application form — footer glassmorphism + brand form controls
+   Desktop calibrated to Figma 1920×1080 reference (second image).
    ========================================================================== */
 
 :root {
@@ -13,6 +14,8 @@
 .application-form {
   position: relative;
   isolation: isolate;
+  container-type: inline-size;
+  container-name: application-form;
   width: 100%;
   max-width: 100%;
   --application-form-title-size: clamp(1.375rem, 4.2vw, 1.875rem);
@@ -223,7 +226,7 @@
   width: clamp(0.875rem, 2.2vw, 1.125rem);
 }
 
-@media (min-width: 640px) {
+@container application-form (min-width: 400px) {
   .application-form__row--split {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -244,7 +247,14 @@
   }
 }
 
+/* Desktop form — Figma reference sizing; flex-fill keeps card full-height */
 @media (min-width: 1024px) {
+  :root {
+    --careers-form-field-height: clamp(44px, 5.5dvh, 50px);
+    --careers-form-gap: clamp(12px, 1.8dvh, 16px);
+    --waitlist-modal-field-height: var(--careers-form-field-height);
+  }
+
   .application-form {
     display: flex;
     flex-direction: column;
@@ -255,6 +265,7 @@
     backdrop-filter: blur(32px) saturate(1.08);
     -webkit-backdrop-filter: blur(32px) saturate(1.08);
     background: rgba(255, 255, 255, 0.16);
+    --application-form-title-size: clamp(1.5rem, min(2.2vw, 2.8dvh), 1.875rem);
   }
 
   .application-form::before {
@@ -271,13 +282,13 @@
     padding: clamp(24px, 3.4dvh, 36px) clamp(24px, 2.8vw, 36px);
   }
 
-  .application-form {
-    --application-form-title-size: clamp(1.5rem, 2.2vw, 1.875rem);
-  }
-
   .application-form__header {
     flex-shrink: 0;
     gap: clamp(8px, 1.2dvh, 12px);
+  }
+
+  .application-form__subtitle {
+    font-size: clamp(0.6875rem, min(0.9vw, 1.3dvh), 0.8125rem);
   }
 
   .application-form__form {
@@ -293,8 +304,9 @@
     flex-direction: column;
     flex: 1 1 auto;
     min-height: 0;
-    gap: clamp(12px, 1.8dvh, 16px);
-    overflow: hidden;
+    gap: var(--careers-form-gap);
+    overflow-x: hidden;
+    overflow-y: auto;
   }
 
   .application-form__actions {
@@ -305,7 +317,7 @@
 
   .application-form__row {
     flex-shrink: 0;
-    gap: clamp(12px, 1.8dvh, 16px);
+    gap: var(--careers-form-gap);
   }
 
   .application-form__row--grow {
@@ -331,7 +343,7 @@
   .application-form__textarea-wrap {
     position: relative;
     flex: 1 1 auto;
-    min-height: clamp(72px, 10dvh, 120px);
+    min-height: clamp(72px, 10dvh, 140px);
     max-height: 100%;
     overflow: hidden;
   }
@@ -349,7 +361,7 @@
 
   .application-form__input,
   .application-form .waitlist-select__trigger {
-    min-height: clamp(44px, 5.5dvh, 50px);
+    min-height: var(--careers-form-field-height);
     padding-block: 0.75rem;
   }
 
@@ -359,10 +371,38 @@
     padding-inline: var(--space-phi-2);
     padding-block: clamp(10px, 1.4dvh, var(--space-phi-1));
     margin-top: 0;
+    font-size: var(--application-form-title-size);
+    letter-spacing: 0.06em;
   }
 
   .application-form__submit .waitlist-btn__icon {
     width: clamp(0.875rem, 1.6vw, 1.0625rem);
+  }
+}
+
+/* Short landscape laptops only — compact form so nothing clips */
+@media (min-width: 1024px) and (max-height: 860px) {
+  :root {
+    --careers-form-field-height: clamp(40px, 5dvh, 46px);
+    --careers-form-gap: clamp(8px, 1.25dvh, 12px);
+    --waitlist-modal-field-height: var(--careers-form-field-height);
+  }
+
+  .application-form {
+    --application-form-title-size: clamp(1.25rem, min(2vw, 2.2dvh), 1.625rem);
+  }
+
+  .application-form__inner {
+    gap: clamp(14px, 2.2dvh, 22px);
+    padding: clamp(18px, 2.8dvh, 28px) clamp(18px, 2.4vw, 28px);
+  }
+
+  .application-form__textarea-wrap {
+    min-height: clamp(56px, 8dvh, 96px);
+  }
+
+  .application-form__submit.waitlist-btn {
+    min-height: clamp(42px, 5dvh, 48px);
   }
 }
 

@@ -1,4 +1,5 @@
 import { SITE_COPY } from '../constants/site'
+import StretchText from './StretchText'
 
 export default function CareersHero() {
   return (
@@ -8,7 +9,7 @@ export default function CareersHero() {
           <h1 className="display-title">
             <span>{SITE_COPY.careersTitle}</span>
           </h1>
-          <p className="tagline">{SITE_COPY.careersTagline}</p>
+          <StretchText className="tagline" text={SITE_COPY.careersTagline} />
         </div>
         <p className="careers-hero__body">{SITE_COPY.careersBody}</p>
       </div>
