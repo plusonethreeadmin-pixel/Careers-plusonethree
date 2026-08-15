@@ -24,6 +24,9 @@ export const SITE_COPY = {
     "Tell us why you're the right fit for PlusOneThree.",
   formWhyYouPlaceholderOther:
     "Describe the role you're interested in and why you'd be a strong fit for PlusOneThree.",
+  applicationSuccessTitle: 'APPLICATION RECEIVED.',
+  applicationSuccessBodyLines: ['We will be in touch.'],
+  applicationSuccessClose: 'Close',
   copyrightLines: ['©2026 PLUSONETHREE.', 'All Rights Reserved.'],
   footerTagline: 'FUELING YOU SOON',
 }

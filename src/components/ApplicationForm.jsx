@@ -13,6 +13,7 @@ import {
   WHY_YOU_MIN_WORDS,
 } from '../lib/careers'
 import CareerSelect from './CareerSelect'
+import ApplicationSuccessModal from './ApplicationSuccessModal'
 
 const INITIAL_FORM = {
   fullName: '',
@@ -39,12 +40,11 @@ export default function ApplicationForm() {
   const [openSelect, setOpenSelect] = useState(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitError, setSubmitError] = useState('')
-  const [submitSuccess, setSubmitSuccess] = useState(false)
+  const [showSuccessModal, setShowSuccessModal] = useState(false)
 
   const updateField = useCallback((field, value) => {
     setForm((current) => ({ ...current, [field]: value }))
     setSubmitError('')
-    setSubmitSuccess(false)
   }, [])
 
   const handleSelectOpen = useCallback((field, isOpen) => {
@@ -58,8 +58,10 @@ export default function ApplicationForm() {
 
   const handleSubmit = async (event) => {
     event.preventDefault()
+    if (isSubmitting) return
+
     setSubmitError('')
-    setSubmitSuccess(false)
+    setShowSuccessModal(false)
 
     const validationError = getApplicationValidationError(form)
     if (validationError) {
@@ -72,7 +74,7 @@ export default function ApplicationForm() {
     try {
       await submitApplication(form)
       setForm(INITIAL_FORM)
-      setSubmitSuccess(true)
+      setShowSuccessModal(true)
     } catch (err) {
       if (isApplicationDuplicateError(err)) {
         setSubmitError('You already applied with this email address.')
@@ -244,11 +246,6 @@ export default function ApplicationForm() {
           </div>
 
           <div className="application-form__actions">
-          {submitSuccess ? (
-            <p className="application-form__error" role="status" style={{ color: 'inherit' }}>
-              Application submitted. We will be in touch.
-            </p>
-          ) : null}
           {submitError ? (
             <p className="application-form__error" role="alert">
               {submitError}
@@ -257,14 +254,27 @@ export default function ApplicationForm() {
 
           <button
             type="submit"
-            className="waitlist-btn application-form__submit"
+            className={`waitlist-btn application-form__submit${isSubmitting ? ' application-form__submit--loading' : ''}`}
             disabled={isSubmitting}
+            aria-busy={isSubmitting}
           >
-            <span className="waitlist-btn__label">{SITE_COPY.formSubmit}</span>
+            {isSubmitting ? (
+              <>
+                <span className="application-form__submit-spinner" aria-hidden="true" />
+                <span className="visually-hidden">Submitting application</span>
+              </>
+            ) : (
+              <span className="waitlist-btn__label">{SITE_COPY.formSubmit}</span>
+            )}
           </button>
           </div>
         </form>
       </div>
+
+      <ApplicationSuccessModal
+        isOpen={showSuccessModal}
+        onClose={() => setShowSuccessModal(false)}
+      />
     </section>
   )
 }
