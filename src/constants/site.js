@@ -15,7 +15,7 @@ export const SITE_COPY = {
   careersBody:
     "We're always looking for driven individuals who want to push boundaries and build with purpose. If you've got the mindset, we'd love to hear from you.",
   formTitle: 'Application Form',
-  formSubtitle: 'Fill in all the details below to apply.',
+  formSubtitle: 'Fill in all the details below to apply today.',
   formSubmit: 'Submit Application',
   formWorkModeLabel: 'Work Mode',
   formWhyYouPlaceholder:
