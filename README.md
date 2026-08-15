@@ -43,10 +43,14 @@ Workflow: `.github/workflows/deploy-pages.yml`
 
 ### Required GitHub secrets
 
+Add these to the **`CLOUDFLARE_TOKENS`** environment (Settings → Environments → CLOUDFLARE_TOKENS → Environment secrets), or as repository secrets:
+
 | Secret | Description |
 |--------|-------------|
 | `CLOUDFLARE_API_TOKEN` | Cloudflare API token with **Account → Cloudflare Pages → Edit** |
 | `CLOUDFLARE_ACCOUNT_ID` | Cloudflare account ID |
+
+The deploy workflow uses `environment: CLOUDFLARE_TOKENS`.
 
 Do **not** enable Cloudflare Pages native Git builds with a custom `wrangler deploy` command — use GitHub Actions instead.
 

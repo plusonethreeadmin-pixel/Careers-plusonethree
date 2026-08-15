@@ -12,6 +12,7 @@ concurrency:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    environment: CLOUDFLARE_TOKENS
     permissions:
       contents: read
       deployments: write
