@@ -4,6 +4,12 @@ import {
   ROLE_OPTIONS,
   SITE_COPY,
 } from '../constants/site'
+import {
+  getApplicationValidationError,
+  isApplicationDuplicateError,
+  submitApplication,
+  WHY_YOU_MAX,
+} from '../lib/careers'
 import CareerSelect from './CareerSelect'
 
 const INITIAL_FORM = {
@@ -16,8 +22,6 @@ const INITIAL_FORM = {
   location: '',
   whyYou: '',
 }
-
-const WHY_YOU_MAX = 500
 
 function RequiredMark() {
   return (
@@ -33,10 +37,12 @@ export default function ApplicationForm() {
   const [openSelect, setOpenSelect] = useState(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitError, setSubmitError] = useState('')
+  const [submitSuccess, setSubmitSuccess] = useState(false)
 
   const updateField = useCallback((field, value) => {
     setForm((current) => ({ ...current, [field]: value }))
     setSubmitError('')
+    setSubmitSuccess(false)
   }, [])
 
   const handleSelectOpen = useCallback((field, isOpen) => {
@@ -51,14 +57,26 @@ export default function ApplicationForm() {
   const handleSubmit = async (event) => {
     event.preventDefault()
     setSubmitError('')
+    setSubmitSuccess(false)
+
+    const validationError = getApplicationValidationError(form)
+    if (validationError) {
+      setSubmitError(validationError)
+      return
+    }
+
     setIsSubmitting(true)
 
     try {
-      // Placeholder — wire to your careers API when ready.
-      await new Promise((resolve) => window.setTimeout(resolve, 600))
+      await submitApplication(form)
       setForm(INITIAL_FORM)
-    } catch {
-      setSubmitError('Something went wrong. Please try again.')
+      setSubmitSuccess(true)
+    } catch (err) {
+      if (isApplicationDuplicateError(err)) {
+        setSubmitError('You already applied with this email address.')
+      } else {
+        setSubmitError('Something went wrong. Please try again.')
+      }
     } finally {
       setIsSubmitting(false)
     }
@@ -223,6 +241,11 @@ export default function ApplicationForm() {
           </div>
 
           <div className="application-form__actions">
+          {submitSuccess ? (
+            <p className="application-form__error" role="status" style={{ color: 'inherit' }}>
+              Application submitted. We will be in touch.
+            </p>
+          ) : null}
           {submitError ? (
             <p className="application-form__error" role="alert">
               {submitError}
