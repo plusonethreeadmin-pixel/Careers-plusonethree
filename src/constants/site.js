@@ -35,6 +35,7 @@ export const ROLE_OPTIONS = [
   { value: 'creative-designer', label: 'Creative Designer' },
   { value: 'operations', label: 'Operations' },
   { value: 'marketeer', label: 'Marketeer' },
+  { value: 'email-marketeer', label: 'Email Marketeer' },
   { value: 'content-strategist', label: 'Content Strategist' },
   { value: 'other', label: 'Other' },
 ]
