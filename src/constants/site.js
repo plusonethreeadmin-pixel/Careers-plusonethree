@@ -40,6 +40,7 @@ export const ROLE_OPTIONS = [
   { value: 'other', label: 'Other' },
 ]
 
+
 export const LOCATION_OPTIONS = [
   { value: 'in-person', label: 'In-Person' },
   { value: 'remote', label: 'Remote' },
