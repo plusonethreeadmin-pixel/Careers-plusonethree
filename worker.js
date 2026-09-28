@@ -13,6 +13,7 @@ var ROLES = /* @__PURE__ */ new Set([
   "email-marketeer",
   "content-strategist",
   "customer-relation-manager",
+  "sports-nutritionist",
   "other"
 ]);
 var WORK_MODES = /* @__PURE__ */ new Set(["in-person", "remote"]);
@@ -23,6 +24,7 @@ var ROLE_LABELS = {
   "email-marketeer": "Email Marketeer",
   "content-strategist": "Content Strategist",
   "customer-relation-manager": "Customer's Relation Manager",
+  "sports-nutritionist": "Sports Nutritionist",
   other: "Other"
 };
 var WORK_MODE_LABELS = {
