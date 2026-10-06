@@ -9,6 +9,7 @@ var LINKEDIN_RE = /^https?:\/\/.+/i;
 var ROLES = /* @__PURE__ */ new Set([
   "creative-designer",
   "operations",
+  "operations-intern",
   "marketeer",
   "email-marketeer",
   "content-strategist",
@@ -20,6 +21,7 @@ var WORK_MODES = /* @__PURE__ */ new Set(["in-person", "remote"]);
 var ROLE_LABELS = {
   "creative-designer": "Creative Designer",
   operations: "Operations",
+  "operations-intern": "Operations Intern",
   marketeer: "Marketeer",
   "email-marketeer": "Email Marketeer",
   "content-strategist": "Content Strategist",
